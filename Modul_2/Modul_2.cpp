@@ -145,7 +145,7 @@ void Task_1()
 	}
 	fclose(f);
 	f = fopen("text_1.txt", "w");
-	fwrite(text, sizeof(char), 1000, f);
+	fwrite(text, sizeof(char), i, f);
 	fclose(f);
 	cout << "\nWould you like to do another task?\n";
 	cout << "If yes, press a space button.";
