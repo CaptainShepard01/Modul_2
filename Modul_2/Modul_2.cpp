@@ -1,6 +1,9 @@
-﻿#include <fstream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <fstream>
 #include <stdio.h>
+#include <conio.h>
 #include <iostream>
+#include "Header.h"
 
 using namespace std;
 
@@ -52,6 +55,37 @@ void Input_Bin(Vector* a)
 	input.close();
 }
 
+void Task_2()
+{
+	Vector a, b;
+	double k;
+	cout << "Enter 2 Vectors (coordinates):\n";
+	cout << "Enter your first vector: ";
+	cin >> a.x >> a.y;
+	cout << "Enter your second vector: ";
+	cin >> b.x >> b.y;
+	cout << "Enter scalar: ";
+	cin >> k;
+	Output_console(a);
+	Output_console(b);
+	cout << "Sum: ";
+	cout << '(' << sum(a, b).x << ", " << sum(a, b).y << ')' << endl;
+	cout << "Their scalar multiplication: " << Scalar_Multiplication(a, b) << endl;
+	cout << "Norm of first: " << norm(a) << endl;
+	cout << "Norm of second: " << norm(b) << endl;
+	cout << "Multiplication by scalar (first): " << '(' << Multiplication_by_scalar(a, k).x << ", " << Multiplication_by_scalar(a, k).y << ')' << endl;
+	cout << "Multiplication by scalar (second): " << '(' << Multiplication_by_scalar(b, k).x << ", " << Multiplication_by_scalar(b, k).y << ')' << endl;
+	Vector m[2];
+	m[0] = a;
+	m[1] = b;
+	Output_Bin(m);
+	cout << "Would you like to do another task?\n";
+	cout << "If yes, press a space button.";
+	char tmp;
+	tmp = _getch();
+	if (tmp == 32)main();
+	else return;
+}
 
 long long Binom_coef(int n, int k)
 {
@@ -63,28 +97,45 @@ long long Binom_coef(int n, int k)
 	}
 }
 
-
+void Task_4()
+{
+	int n, k;
+	cout << "There is a binominal coefficient C of n to k.\nEnter n and k: ";
+	cin >> n >> k;
+	cout << "Here is your binominal coefficient: " << Binom_coef(n, k) << endl;
+	cout << "Would you like to do another task?\n";
+	cout << "If yes, press a space button.";
+	char tmp;
+	tmp = _getch();
+	if (tmp == 32)main();
+	else return;
+}
 
 void Task_1()
 {
-	FILE* f = fopen("D:\\text_1.txt", "r");
+	FILE* f = fopen("text_1.txt", "r");
 	char text[1000] = { '\0' };
 	fread(text, sizeof(char), 1000, f);
 	int i = 0;
+	bool flag = false;
 	while (i <= strlen(text) - 2)
 	{
 		if (text[i] == '/' && text[i + 1] == '/')
 		{
 			text[i] = 32;
-			text[i + 1] = 32; 
+			text[i + 1] = 32;
 			i += 2;
 			while (i <= strlen(text) - 1)
 			{
+				if (text[i] == 32 && text[i+1]==32)
+					flag = true;
+				if (flag) break;
 				if (text[i] == 10)
 				{
 					cout << endl;
 					break;
 				}
+				
 				cout << text[i];
 				text[i] = 32;
 				i++;
@@ -93,9 +144,15 @@ void Task_1()
 		i++;
 	}
 	fclose(f);
-	f = fopen("D:\\text_1.txt", "w");
+	f = fopen("text_1.txt", "w");
 	fwrite(text, sizeof(char), 1000, f);
 	fclose(f);
+	cout << "\nWould you like to do another task?\n";
+	cout << "If yes, press a space button.";
+	char tmp;
+	tmp = _getch();
+	if (tmp == 32)main();
+	else return;
 }
 
 
@@ -123,11 +180,10 @@ int StrToInt(char* s, int& i)
 
 void Task_3()
 {
-	FILE* f = fopen("D:\\text_3.txt", "r");
-
+	ifstream input("text_3.txt");
 	char text[1000] = { '\0' };
-	fread(text, sizeof(char), 1000, f);
-	fclose(f);
+	input.read(text, sizeof(text));
+	input.close();
 
 	int i = 0;
 	int n = StrToInt(text, i);
@@ -192,4 +248,10 @@ void Task_3()
 		}
 		cout << endl;
 	}
+	cout << "Would you like to do another task?\n";
+	cout << "If yes, press a space button.";
+	char temp;
+	temp = _getch();
+	if (temp == 32)main();
+	else return;
 }
