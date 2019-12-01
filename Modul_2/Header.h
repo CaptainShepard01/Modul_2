@@ -16,7 +16,6 @@ void Output_console(Vector a);
 void Input_Bin(Vector* a);
 long long Binom_coef(int n, int k);
 void Task_1();
-int StrToInt(char* s, int& i);
 void Task_3();
 void Task_2();
 void Task_4();

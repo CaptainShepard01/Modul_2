@@ -155,98 +155,48 @@ void Task_1()
 	else return;
 }
 
-
-
-int StrToInt(char* s, int& i)
-{
-	int temp = 0;
-	int sign = 0;
-	if (s[i] == '-')
-	{
-		sign = 1;
-		i++;
-	}
-	while ((int)s[i] >= 48 && (int)s[i] <= 57)
-	{
-		temp += ((int)s[i] - 48);
-		temp *= 10;
-		i++;
-	}
-	temp /= 10;
-	if (sign == 1)
-		temp = -temp;
-	return temp;
-}
-
 void Task_3()
 {
 	ifstream input("text_3.txt");
-	char text[1000] = { '\0' };
-	input.read(text, sizeof(text));
-	input.close();
-
+	int n;
+	input >> n;
 	int i = 0;
-	int n = StrToInt(text, i);
-
-	int* tmp = new int[n * n];
-	int** a = new int* [n];
-
-	for (int ix = 0; ix < n; ix++)
-	{
-		a[ix] = new int[n];
+	int** matr = new int*[n];
+	for (int i = 0; i < n; ++i) {
+		matr[i] = new int[n];
+		for (int j = 0; j < n; ++j)input >> matr[i][j];
 	}
-
-	int j = 0;
-	while (j < n * n)
-	{
-		i++;
-		tmp[j] = StrToInt(text, i);
-		j++;
-	}
-
-	int itr = 0;
-	for (i = 0; i < n; i++)
-	{
-		for (j = 0; j < n; j++)
-		{
-			a[i][j] = tmp[itr];
-			itr++;
-		}
-	}
-
-	for (i = 0; i < n; i++)
-	{
-		for (j = 0; j < n; j++)
-		{
-			if (a[i][j] == a[n - 1 - j][n - 1 - i])
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			if (matr[i][j] == matr[j][i]&&i!=j)
 			{
-				a[i][j] = 0;
-				a[n - 1 - j][n - 1 - i] = 0;
+				if (matr[i][j] == matr[n-j-1][n-i-1] && i != n - j - 1 && j != n - i - 1) {
+					matr[i][j] = 0;
+					matr[n - j - 1][n - i - 1] = 0;
+				}
+				matr[i][j] = 0;
+				matr[j][i] = 0;
+			}
+			if (matr[i][j] == matr[n - j - 1][n - i - 1]&&i!= n - j - 1 && j!= n - i - 1) {
+				matr[i][j] = 0;
+				matr[n - j - 1][n - i - 1] = 0;
 			}
 		}
 	}
-
-	int countR = 0, countC = 0;
-	for (i = 0; i < n; i++)
-	{
-		countR = 0;
-		countC = 0;
-		for (j = 0; j < n; j++)
-		{
-			if (a[i][j] == 0) countR++;
-			if (a[j][i] == 0) countC++;
+	bool t1=false, t2=false;
+	for (int i = 0; i < n; ++i) {
+		t1 = false;
+		t2 = false;
+		for (int j = 0; j < n; ++j) {
+			if (matr[i][j] != 0) {
+				t1 = true;
+			}
+			if (matr[j][i] != 0) {
+				t2 = true;
+			}
 		}
-		if (countC == 0) cout << "Null column exist" << endl;
-		if (countR == 0) cout << "Null row exist" << endl;
-	}
-
-	for (i = 0; i < n; i++)
-	{
-		for (j = 0; j < n; j++)
-		{
-			cout << a[i][j] << " ";
-		}
-		cout << endl;
+		if (!t1)cout << "There is null string: " << i + 1 << endl;
+		if (!t2)cout << "There is null column: " << i + 1 << endl;
 	}
 	cout << "Would you like to do another task?\n";
 	cout << "If yes, press a space button.";
