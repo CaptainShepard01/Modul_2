@@ -127,7 +127,7 @@ void Task_1()
 			i += 2;
 			while (i <= strlen(text) - 1)
 			{
-				if (text[i] == 32 && text[i+1]==32)
+				if (text[i] == 32 && text[i + 1] == 32)
 					flag = true;
 				if (flag) break;
 				if (text[i] == 10)
@@ -135,7 +135,7 @@ void Task_1()
 					cout << endl;
 					break;
 				}
-				
+
 				cout << text[i];
 				text[i] = 32;
 				i++;
@@ -161,29 +161,29 @@ void Task_3()
 	int n;
 	input >> n;
 	int i = 0;
-	int** matr = new int*[n];
+	int** matr = new int* [n];
 	for (int i = 0; i < n; ++i) {
 		matr[i] = new int[n];
 		for (int j = 0; j < n; ++j)input >> matr[i][j];
 	}
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
-			if (matr[i][j] == matr[j][i]&&i!=j)
+			if (matr[i][j] == matr[j][i] && i != j)
 			{
-				if (matr[i][j] == matr[n-j-1][n-i-1] && i != n - j - 1 && j != n - i - 1) {
+				if (matr[i][j] == matr[n - j - 1][n - i - 1] && i != n - j - 1 && j != n - i - 1) {
 					matr[i][j] = 0;
 					matr[n - j - 1][n - i - 1] = 0;
 				}
 				matr[i][j] = 0;
 				matr[j][i] = 0;
 			}
-			if (matr[i][j] == matr[n - j - 1][n - i - 1]&&i!= n - j - 1 && j!= n - i - 1) {
+			if (matr[i][j] == matr[n - j - 1][n - i - 1] && i != n - j - 1 && j != n - i - 1) {
 				matr[i][j] = 0;
 				matr[n - j - 1][n - i - 1] = 0;
 			}
 		}
 	}
-	bool t1=false, t2=false;
+	bool t1 = false, t2 = false;
 	for (int i = 0; i < n; ++i) {
 		t1 = false;
 		t2 = false;
@@ -205,3 +205,46 @@ void Task_3()
 	if (temp == 32)main();
 	else return;
 }
+
+/*void Task_1_alt()
+{
+	ifstream in("text_1.txt");
+	char tmp[1000];
+	char t;
+	int k = 0;
+	while (!in.eof()) {
+		in.getline(tmp, 1000);
+		int i = 0;
+		while (tmp[i] > 0) i++;
+		if (tmp[i] == '\n')k++;
+	}
+	in.seekg(ios::beg);
+	char** lines = new char* [k];
+	for (int j = 0; j < k; ++j) {
+		lines[k] = new char[1000];
+	}
+	int l = 0;
+	while (!in.eof()) {
+		in.getline(tmp, 1000);
+		int i = 0;
+		while (tmp[i] > 0&&tmp[i] != '/' && tmp[i + 1] != '/') {
+			lines[l][i] = tmp[i];
+		}
+		l++;
+		if (tmp[i] == '/' && tmp[i + 1] == '/')
+		{
+			i += 2;
+			while (tmp[i] > 0) {
+				cout << tmp[i];
+				i++;
+			}
+		}
+	}
+	in.close();
+	ofstream out("text_1.txt");
+	for (int d = 0; d < k; ++d) {
+		out.write(lines[d], sizeof(char) * 1000);
+		if (1);
+	}
+	out.close();
+}*/
